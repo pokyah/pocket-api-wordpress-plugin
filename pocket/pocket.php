@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Pocket API Integration 
+ * @package Pocket API Integration
  * @version 1.0
  */
 /*
 Plugin Name: Pocket API Integration
 Plugin URI: http://wordpress.org/plugins/pocket-api/
 Description: This is a plugin for automatic blog feed from Pocket API - idea was submitted by pokyah.com
-Author: Ognian Samokovliyski 
+Author: Ognian Samokovliyski
 Version: 1.0
 Author URI: http://ognian7.github.com/
 */
@@ -28,7 +28,7 @@ function pocket_api_cron_recurrence_interval( $schedules ) {
             'interval'  => get_option('pocket-api-interval', 10) * 60,
             'display'   => __( 'Every ' . $minutes . ' Minutes', 'textdomain' )
     );
-     
+
     return $schedules;
 }
 
@@ -285,7 +285,7 @@ function pocket_api_interval_action() {
                 $id = get_the_ID();
                 wp_update_post(array(ID => $id,
                     post_author => $user->ID,
-                    post_content => ($value->has_image == "1" ? '<img src="' . $value->image->src . '" /><br />' : '') . '<a href="' . $value->given_url . '">' . (trim($value->excerpt) == "" ? "read the original" : $value->excerpt) . '</a>' ,
+                    post_content => ($value->has_image == "1" ? '<div class="pocketExcert"><img src="' . $value->image->src . '" /><br />' : '') . '<a href="' . $value->given_url . '">' . (trim($value->excerpt) == "" ? "read the original" : $value->excerpt) . '</a></div>' ,
                     post_title => $value->given_title,
                     post_status => get_option('pocket-api-status') == 'P' ? 'publish' : 'draft',
                     post_category => $cats,
@@ -296,7 +296,7 @@ function pocket_api_interval_action() {
         } else {
 
             $id = wp_insert_post(array(post_author => $user->ID,
-                post_content => ($value->has_image == "1" ? '<img src="' . $value->image->src . '" /><br />' : '') . '<a href="' . $value->given_url . '">' . (trim($value->excerpt) == "" ? "read the original" : $value->excerpt) . '</a>' ,
+                post_content => ($value->has_image == "1" ? '<div class="pocketExcert"><img src="' . $value->image->src . '" /><br />' : '') . '<a href="' . $value->given_url . '">' . (trim($value->excerpt) == "" ? "read the original" : $value->excerpt) . '</a></div>' ,
                 post_title => $value->given_title,
                 post_status => get_option('pocket-api-status') == 'P' ? 'publish' : 'draft',
                 post_category => $cats,
